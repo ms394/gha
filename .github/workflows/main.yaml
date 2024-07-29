@@ -46,8 +46,8 @@ jobs:
         run: |
             SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            SOURCE_PROJECT=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z')
-            TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z')
+            SOURCE_PROJECT=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z') | tr - _
+            TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z') | tr - _
             echo "Upper case source project : $SOURCE_PROJECT"
             echo "Upper case target project : $TARGET_PROJECT"
       - name: Run Python Script
@@ -58,4 +58,4 @@ jobs:
           TARGET_PROJECT: ${{ github.event.inputs.target-project }}
           SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
           TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
-        run: python -u main.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
+        run: python -u main.py $SOURCE_PROJECT $SOURCE_SECRET $TARGET_PROJECT $TARGET_SECRET
