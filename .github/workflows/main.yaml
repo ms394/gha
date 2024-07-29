@@ -49,16 +49,17 @@ jobs:
             echo "SOURCE_PROJECT=$SOURCE_PROJECT" >> $GITHUB_ENV
             echo "TARGET_PROJECT=$TARGET_PROJECT" >> $GITHUB_ENV
     outputs:
-        SOURCE_SECRET_NAME: ${{ join(env.SOURCE_PROJECT, '_SA_SECRET') }}
-        TARGET_SECRET_NAME: ${{ join(env.TARGET_PROJECT, '_SA_SECRET') }}
+        SOURCE_SECRET_NAME: ${{ join($SOURCE_PROJECT, '_SA_SECRET') }}
+        TARGET_SECRET_NAME: ${{ join($TARGET_PROJECT, '_SA_SECRET') }}
   access-secrets:  
     name: Run Python Script
     runs-on: ubuntu-latest
+    needs: convert_project_names
     environment: staging
     steps:
         - name: Get Secret
           run: |
             SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}
             TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}
-            echo $SOURCE_SECRET_KEY $TARGET_SECRET_KEY
+            echo SOURCE_SECRET_KEY TARGET_SECRET_KEY
             python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
