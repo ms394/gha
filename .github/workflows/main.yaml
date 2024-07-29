@@ -50,8 +50,8 @@ jobs:
         run: |
             SOURCE_PROJECT=$(echo "${{ github.event.inputs.source-project }}" | tr 'a-z' 'A-Z' | tr '-' '_') 
             TARGET_PROJECT=$(echo "${{ github.event.inputs.target-project }}" | tr 'a-z' 'A-Z' | tr '-' '_')
-            echo "SOURCE_PROJECT=$SOURCE_PROJECT" 
-            echo "TARGET_PROJECT=$TARGET_PROJECT"
+            echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
+            echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
     
   access-secrets:  
     name: Run Python Script
