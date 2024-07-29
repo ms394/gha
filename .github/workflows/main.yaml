@@ -28,10 +28,10 @@ jobs:
     name: Get SA Secrets for the projects
     runs-on: ubuntu-latest
     outputs:
-        SOURCE_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT_INPUT }}
-        TARGET_PROJECT: ${{ steps.get_project_names.outputs.TARGET_PROJECT_INPUT }}
-        SOURCE_PROJECT_KEY: ${{ steps.get_project_names.outputs.SOURCE_SECRET_NAME }}
-        TARGET_PROJECT_KEY: ${{ steps.get_project_names.outputs.TARGET_SECRET_NAME }}
+        SOURCE_PROJECT_INPUT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT_INPUT }}
+        TARGET_PROJECT_INPUT: ${{ steps.get_project_names.outputs.TARGET_PROJECT_INPUT }}
+        SOURCE_SECRET_NAME: ${{ steps.get_project_names.outputs.SOURCE_SECRET_NAME }}
+        TARGET_SECRET_NAME: ${{ steps.get_project_names.outputs.TARGET_SECRET_NAME }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -79,7 +79,8 @@ jobs:
             echo "SOURCE_SECRET_NAME=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}" >> $GITHUB_ENV
             echo "TARGET_SECRET_NAME=${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}" >> $GITHUB_ENV
             echo "INside the second job"
-            echo $${{ needs.convert_project_names.outputs.SOURCE_PROJECT_INPUT }}
+            echo ${env.SOURCE_PROJECT_INPUT}
+            echo ${env.SOURCE_SECRET_NAME}
 
         
         - name: Retrieve and use Secret Key
