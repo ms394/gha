@@ -49,8 +49,8 @@ jobs:
       - name: Get Project names and modify them
         id: get_project_names
         run: |
-            SOURCE_PROJECT_INPUT=${ github.event.inputs.source-project }
-            TARGET_PROJECT_INPUT=${ github.event.inputs.target-project }
+            SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
+            TARGET_PROJECT_INPUT=${{github.event.inputs.target-project }}
             echo $SOURCE_PROJECT_INPUT
   #           SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
   #           TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
