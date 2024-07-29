@@ -49,44 +49,45 @@ jobs:
       - name: Get Project names and modify them
         id: get_project_names
         run: |
-            SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
-            TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
-            SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_RAW}}_SA_SECRET
-            TARGET_SECRET_KEY: ${{TARGET_PROJECT_RAW}}_SA_SECRET
+            SOURCE_PROJECT_INPUT=${ github.event.inputs.source-project }
+            TARGET_PROJECT_INPUT=${ github.event.inputs.target-project }
+            echo $SOURCE_PROJECT_INPUT
+  #           SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
+  #           TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+  #           SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_RAW}}_SA_SECRET
+  #           TARGET_SECRET_KEY: ${{TARGET_PROJECT_RAW}}_SA_SECRET
             
-            echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
-            echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
-            echo "::set-output name=SOURCE_SECRET_KEY::$SOURCE_SECRET_KEY"
-            echo "::set-output name=TARGET_SECRET_KEY::$TARGET_SECRET_KEY"
+  #           echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
+  #           echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
+  #           echo "::set-output name=SOURCE_SECRET_KEY::$SOURCE_SECRET_KEY"
+  #           echo "::set-output name=TARGET_SECRET_KEY::$TARGET_SECRET_KEY"
     
-  access-secrets:  
-    name: Run Python Script
-    runs-on: ubuntu-latest
-    needs: convert_project_names
-    environment: staging
-    steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+  # access-secrets:  
+  #   name: Run Python Script
+  #   runs-on: ubuntu-latest
+  #   needs: convert_project_names
+  #   environment: staging
+  #   steps:
+  #       - name: Checkout code
+  #         uses: actions/checkout@v2
 
         
-        - name: Retrieve and use Secret Key
-          env:
-              SOURCE_PROJECT: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}
-              TARGET_PROJECT: ${{ needs.convert_project_names.outputs.TARGET_PROJECT}}
-              SOURCE_SECRET_KEY: ${{ needs.convert_project_names.outputs.SOURCE_SECRET_KEY}}
-              TARGET_SECRET_KEY: ${{ needs.convert_project_names.outputs.TARGET_SECRET_KEY }}
+  #       - name: Retrieve and use Secret Key
+  #         env:
+  #             SOURCE_PROJECT: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}
+  #             TARGET_PROJECT: ${{ needs.convert_project_names.outputs.TARGET_PROJECT}}
+  #             SOURCE_SECRET_KEY: ${{ needs.convert_project_names.outputs.SOURCE_SECRET_KEY}}
+  #             TARGET_SECRET_KEY: ${{ needs.convert_project_names.outputs.TARGET_SECRET_KEY }}
               
           
-          run: |
-            # Access the secrets using environment variables
+  #         run: |
+  #           # Access the secrets using environment variables
             
-            # Use the secrets
-            SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
-            TARGET_SECRET=${{ secrets[env.TARGET_SECRET_KEY] }}
-            echo "SOURCE_PROJECT=${SOURCE_PROJECT}"
-            echo "TARGET_PROJECT=${TARGET_PROJECT}"
-            echo "SOURCE_SECRET=${SOURCE_SECRET}"
-            echo "TARGET_SECRET=${TARGET_SECRET}"
-            python -u main.py $SOURCE_PROJECT $SOURCE_SECRET $TARGET_PROJECT $TARGET_SECRET
+  #           # Use the secrets
+  #           SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
+  #           TARGET_SECRET=${{ secrets[env.TARGET_SECRET_KEY] }}
+  #           echo "SOURCE_PROJECT=${SOURCE_PROJECT}"
+  #           echo "TARGET_PROJECT=${TARGET_PROJECT}"
+  #           echo "SOURCE_SECRET=${SOURCE_SECRET}"
+  #           echo "TARGET_SECRET=${TARGET_SECRET}"
+  #           python -u main.py $SOURCE_PROJECT $SOURCE_SECRET $TARGET_PROJECT $TARGET_SECRET
