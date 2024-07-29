@@ -54,8 +54,8 @@ jobs:
             
             SOURCE_PROJECT=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
             TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
-            SOURCE_SECRET_NAME=${SOURCE_PROJECT_RAW}_SA_SECRET
-            TARGET_SECRET_NAME=${TARGET_PROJECT_RAW}_SA_SECRET
+            SOURCE_SECRET_NAME=${SOURCE_PROJECT}_SA_SECRET
+            TARGET_SECRET_NAME=${TARGET_PROJECT}_SA_SECRET
 
             echo $SOURCE_PROJECT_INPUT, $TARGET_PROJECT_INPUT, $SOURCE_SECRET_NAME, $TARGET_SECRET_NAME
             echo "::set-output name=SOURCE_PROJECT_INPUT::$SOURCE_PROJECT_INPUT"
@@ -67,7 +67,7 @@ jobs:
     name: Run Python Script
     runs-on: ubuntu-latest
     needs: convert_project_names
-    # environment: staging
+    environment: staging
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
