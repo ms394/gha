@@ -51,10 +51,10 @@ jobs:
         run: |
             SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            SOURCE_PROJECT_STR=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            TARGET_PROJECT_STR=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
-            SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_STR}}_SA_SECRET
-            TARGET_SECRET_KEY: ${{TARGET_PROJECT_STR}}_SA_SECRET
+            SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
+            TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+            SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_RAW}}_SA_SECRET
+            TARGET_SECRET_KEY: ${{TARGET_PROJECT_RAW}}_SA_SECRET
             
             echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
             echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
