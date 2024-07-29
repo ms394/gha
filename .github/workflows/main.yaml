@@ -46,10 +46,10 @@ jobs:
         env:
             SOURCE_PROJECT_INPUT: ${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT: ${{ github.event.inputs.target-project }}
-        run: |
             SOURCE_PROJECT: $(echo "env.SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z')
             TARGET_PROJECT: $(echo "env.TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z')
-      
+        run: |
+            echo $SOURCE_PROJECT $TARGET_PROJECT  
       - name: Run Python Script
         working-directory: .
         env:
