@@ -76,9 +76,9 @@ jobs:
             
             # Use the secrets
             SOURCE_SECRET=${{ secrets.SOURCE_SECRET_KEY }}
-            TARGET_SECRET=${{ secrets.TST_AAA_BLK_DEV_INI2_01_SA_SECRET }}
+            TARGET_SECRET=${{ secrets.TST_AAA_BLK_DEV_INI2_01_SA_SECRET}}
             echo "SOURCE_SECRET_KEY=${SOURCE_SECRET_KEY}"
             echo "TARGET_SECRET_KEY=${TARGET_SECRET_KEY}"
             echo "SOURCE_SECRET=${SOURCE_SECRET}"
             echo "TARGET_SECRET=${TARGET_SECRET}"
-            python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
+            python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{TARGET_SECRET}}
