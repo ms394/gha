@@ -46,9 +46,10 @@ jobs:
         run: |
             SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            
-            echo "Upper case source project : $SOURCE_PROJECT_INPUT"
-            echo "Upper case target project : $TARGET_PROJECT_INPUT"
+            SOURCE_PROJECT=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z')
+            TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z')
+            echo "Upper case source project : $SOURCE_PROJECT"
+            echo "Upper case target project : $TARGET_PROJECT"
       - name: Run Python Script
         working-directory: .
         env:
