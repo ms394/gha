@@ -44,18 +44,18 @@ jobs:
           pip install -r requirements.txt  # If you have any requirements
       - name: Get Project names and modify them
         run: |
-            SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
-            TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
             SOURCE_PROJECT=$(echo "${{ github.event.inputs.source-project }}" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
-            echo "Upper case source project : $SOURCE_PROJECT)"
-            echo "Upper case target project : $TARGET_PROJECT)"
+            TARGET_PROJECT=$(echo "${{ github.event.inputs.target-project }}" | tr 'a-z' 'A-Z' | tr '-' '_')
+            echo "SOURCE_PROJECT=$SOURCE_PROJECT" >> $GITHUB_ENV
+            echo "TARGET_PROJECT=$TARGET_PROJECT" >> $GITHUB_ENV
       - name: Run Python Script
         working-directory: .
         env:
           PYTHONUNBUFFERED: "1"
-          SOURCE_PROJECT: ${{ github.event.inputs.source-project }}
-          TARGET_PROJECT: ${{ github.event.inputs.target-project }}
           SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
           TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
-        run: python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
+        run: |
+            SOURCE_SECRET_NAME="${SOURCE_PROJECT}_SA_SECRET"
+            TARGET_SECRET_NAME="${TARGET_PROJECT}_SA_SECRET"
+            echo $SOURCE_SECRET_NAME $TARGET_SECRET_NAME
+            python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
