@@ -30,8 +30,8 @@ jobs:
     outputs:
         SOURCE_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT_INPUT }}
         TARGET_PROJECT: ${{ steps.get_project_names.outputs.TARGET_PROJECT_INPUT }}
-        SOURCE_PROJECT_KEY: ${{ steps.get_project_names.outputs.SOURCE_PROJECT_NAME }}
-        TARGET_PROJECT_KEY: ${{ steps.get_project_names.outputs.TARGET_PROJECT_NAME }}
+        SOURCE_PROJECT_KEY: ${{ steps.get_project_names.outputs.SOURCE_SECRET_NAME }}
+        TARGET_PROJECT_KEY: ${{ steps.get_project_names.outputs.TARGET_SECRET_NAME }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -75,7 +75,7 @@ jobs:
         
         - name: Retrieve and use Secret Key
           env:
-              SOURCE_PROJECT: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT_INPUT}}
+              SOURCE_PROJECT: ${{needs.convert_project_names.outputs.SOURCE_PROJECT_INPUT}}
               TARGET_PROJECT: ${{ needs.convert_project_names.outputs.TARGET_PROJECT_INPUT}}
               SOURCE_SECRET_NAME: ${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME}}
               TARGET_SECRET_NAME: ${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}
