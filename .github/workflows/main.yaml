@@ -53,8 +53,8 @@ jobs:
             TARGET_PROJECT_INPUT=${{github.event.inputs.target-project }}
             
             SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            echo $SOURCE_PROJECT_RAW
-  #           TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+            TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+            echo $SOURCE_PROJECT_RAW $TARGET_PROJECT_RAW
   #           SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_RAW}}_SA_SECRET
   #           TARGET_SECRET_KEY: ${{TARGET_PROJECT_RAW}}_SA_SECRET
             
