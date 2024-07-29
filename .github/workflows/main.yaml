@@ -1,0 +1,52 @@
+name:  Migrate Secrets
+run-name: Migrate Secrets
+
+
+on:
+    workflow_dispatch:
+      inputs:
+        source-project:
+          description: 'Select Source Project'
+          required: true
+          default: 'tst-aaa-blk-dev-ini2-01'
+          type: choice
+          options:
+            - 'tst-aaa-blk-dev-ini2-01'
+            - 'tst-aaa-blk-qa-ini2-01'
+
+
+        target-project:
+          description: 'Select Target Project'
+          required: true
+          default: 'tst-aaa-blk-qa-ini2-01'
+          type: choice
+          options:
+            - 'tst-aaa-blk-dev-ini2-01'
+            - 'tst-aaa-blk-qa-ini2-01'
+        
+jobs:
+  run-script:
+    name: Get SA Secrets for the projects
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # If you have any requirements
+      
+      - name: Run Python Script
+        env:
+          SOURCE_PROJECT: ${{ github.event.inputs.source-project }}
+          TARGET_PROJECT: ${{ github.event.inputs.target-project }}
+          SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
+          TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
+        run: python ../../utils/migrate_secrets.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
