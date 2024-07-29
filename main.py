@@ -5,7 +5,7 @@ def main():
     print('python')
     
     for el in sys.argv:
-        print(sys.argv)
+        print(el)
 
     return
 
