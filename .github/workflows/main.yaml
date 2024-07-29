@@ -68,6 +68,7 @@ jobs:
             echo "TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}_SA_SECRET" >> $GITHUB_ENV
           
         - name: Retrieve and use Secret Key
+          
           run: |
             # Access the secrets using environment variables
             SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}_SA_SECRET"
@@ -76,8 +77,8 @@ jobs:
 
             
             # Use the secrets
-            SOURCE_SECRET=${{ secrets.$SOURCE_SECRET_KEY }}
-            TARGET_SECRET=${{ secrets.$TARGET_SECRET_KEY}}
+            SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
+            TARGET_SECRET=${{ secrets[env.TARGET_SECRET_KEY] }}
             echo "SOURCE_SECRET_KEY=${SOURCE_SECRET_KEY}"
             echo "TARGET_SECRET_KEY=${TARGET_SECRET_KEY}"
             echo "SOURCE_SECRET=${SOURCE_SECRET}"
