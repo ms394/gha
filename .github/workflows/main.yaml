@@ -79,7 +79,7 @@ jobs:
             echo "SOURCE_SECRET_NAME=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}" >> $GITHUB_ENV
             echo "TARGET_SECRET_NAME=${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}" >> $GITHUB_ENV
             echo "INside the second job"
-            echo ${{env.SOURCE_PROJECT_INPUT}}
+            echo $SOURCE_PROJECT_INPUT
             echo ${{env.SOURCE_SECRET_NAME}}
 
         
