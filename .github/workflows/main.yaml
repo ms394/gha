@@ -48,14 +48,15 @@ jobs:
             TARGET_PROJECT=$(echo "${{ github.event.inputs.target-project }}" | tr 'a-z' 'A-Z' | tr '-' '_')
             echo "SOURCE_PROJECT=$SOURCE_PROJECT" >> $GITHUB_ENV
             echo "TARGET_PROJECT=$TARGET_PROJECT" >> $GITHUB_ENV
-      - name: Run Python Script
-        working-directory: .
-        env:
-          PYTHONUNBUFFERED: "1"
-          SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
-          TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
-        run: |
+  access-secrets:  
+    name: Run Python Script
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+        - name: Get Secret
+          run: |
             SOURCE_SECRET_NAME="${SOURCE_PROJECT}_SA_SECRET"
             TARGET_SECRET_NAME="${TARGET_PROJECT}_SA_SECRET"
+            SOURCE_SECRET="${{secrets.SOURCE_SECRET_NAME}}"
             echo $SOURCE_SECRET_NAME $TARGET_SECRET_NAME
             python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
