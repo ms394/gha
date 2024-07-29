@@ -25,7 +25,7 @@ on:
             - 'tst-aaa-blk-qa-ini2-01'
         
 jobs:
-  run-script:
+  convert_project_names:
     name: Get SA Secrets for the projects
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +58,7 @@ jobs:
     steps:
         - name: Get Secret
           run: |
-            SOURCE_SECRET_KEY=${{ needs.run-script.outputs.SOURCE_SECRET_NAME }}
-            TARGET_SECRET_KEY=${{ needs.run-script.outputs.TARGET_SECRET_NAME }}
-            echo $SOURCE_SECRET_NAME $TARGET_SECRET_NAME
+            SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}
+            TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}
+            echo $SOURCE_SECRET_KEY $TARGET_SECRET_KEY
             python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
