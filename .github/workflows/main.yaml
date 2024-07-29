@@ -61,26 +61,23 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
 
-        - name: Set up environment variables for secrets
-          id: set_env
-          run: |
-            echo "SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}_SA_SECRET" >> $GITHUB_ENV
-            echo "TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}_SA_SECRET" >> $GITHUB_ENV
-          
+        
         - name: Retrieve and use Secret Key
+          env:
+              SOURCE_SECRET_KEY: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}_SA_SECRET
+              TARGET_SECRET_KEY: ${{ needs.convert_project_names.outputs.TARGET_PROJECT }}_SA_SECRET
+              
           
           run: |
             # Access the secrets using environment variables
-            SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}_SA_SECRET"
-            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.SOURCE_PROJECT }}"
-            TARGET_SECRET_KEY=${{ env.TARGET_SECRET_KEY }}
-
+            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.SOURCE_PROJECT }}
+            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}
             
             # Use the secrets
             SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
             TARGET_SECRET=${{ secrets[env.TARGET_SECRET_KEY] }}
-            echo "SOURCE_SECRET_KEY=${SOURCE_SECRET_KEY}"
-            echo "TARGET_SECRET_KEY=${TARGET_SECRET_KEY}"
+            echo "SOURCE_PROJECT=${SOURCE_PROJECT}"
+            echo "TARGET_PROJECT=${TARGET_PROJECT}"
             echo "SOURCE_SECRET=${SOURCE_SECRET}"
             echo "TARGET_SECRET=${TARGET_SECRET}"
             python -u main.py $SOURCE_PROJECT $SOURCE_SECRET $TARGET_PROJECT $TARGET_SECRET
