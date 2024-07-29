@@ -22,6 +22,15 @@ on:
           options:
             - 'tst-aaa-blk-dev-ini2-01'
             - 'tst-aaa-blk-qa-ini2-01'
+
+        strato_env:
+            description: 'Select Strato env of Source and Target projects'
+            required: true
+            default: 'staging'
+            type: choice
+            options: 
+                - 'staging'
+                - 'live'
         
 jobs:
   convert_project_names:
@@ -66,7 +75,7 @@ jobs:
     name: Run Python Script
     runs-on: ubuntu-latest
     needs: convert_project_names
-    environment: staging
+    environment: ${{ github.event.inputs.source-project }}
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
