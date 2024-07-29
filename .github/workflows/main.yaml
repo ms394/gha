@@ -76,8 +76,8 @@ jobs:
 
             
             # Use the secrets
-            SOURCE_SECRET=${{ secrets[$SOURCE_SECRET_KEY] }}
-            TARGET_SECRET=${{ secrets[$TARGET_SECRET_KEY] }}
+            SOURCE_SECRET=${{ secrets.SOURCE_SECRET_KEY }}
+            TARGET_SECRET=${{ secrets.TARGET_SECRET_KEY }}
             echo "SOURCE_SECRET_KEY=${SOURCE_SECRET_KEY}"
             echo "TARGET_SECRET_KEY=${TARGET_SECRET_KEY}"
             echo "SOURCE_SECRET=${SOURCE_SECRET}"
