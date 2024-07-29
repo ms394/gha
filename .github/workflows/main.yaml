@@ -49,4 +49,4 @@ jobs:
           TARGET_PROJECT: ${{ github.event.inputs.target-project }}
           SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
           TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
-        run: python ../../utils/migrate_secrets.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
+        run: python ../../main.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
