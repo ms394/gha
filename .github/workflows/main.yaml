@@ -68,6 +68,6 @@ jobs:
             SOURCE_SECRET_KEY="${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}_SA_SECRET"
             TARGET_SECRET_KEY="${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}_SA_SECRET"
             echo $SOURCE_SECRET_KEY
-            echo {{secrets.SOURCE_SECRET_KEY}}
-            echo {{secrets.TARGET_SECRET_KEY}}
+            echo ${{secrets.SOURCE_SECRET_KEY}}
+            echo ${{secrets.TARGET_SECRET_KEY}}
             python -u main.py ${{env.SOURCE_PROJECT}} ${{env.SOURCE_SECRET}} ${{env.TARGET_PROJECT}} ${{env.TARGET_SECRET}}
