@@ -55,9 +55,8 @@ jobs:
             SOURCE_PROJECT_RAW=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
             TARGET_PROJECT_RAW=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
             SOURCE_SECRET_KEY=${SOURCE_PROJECT_RAW}_SA_SECRET
-            echo $SOURCE_SECRET_KEY
-#            TARGET_SECRET_KEY=${{TARGET_PROJECT_RAW}}_SA_SECRET
- #           echo $SOURCE_SECRET_KEY $TARGET_SECRET_KEY
+            TARGET_SECRET_KEY=${TARGET_PROJECT_RAW}_SA_SECRET
+            echo $SOURCE_SECRET_KEY $TARGET_SECRET_KEY
   #           echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
   #           echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
   #           echo "::set-output name=SOURCE_SECRET_KEY::$SOURCE_SECRET_KEY"
