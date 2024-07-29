@@ -71,7 +71,7 @@ jobs:
           run: |
             # Access the secrets using environment variables
             SOURCE_PROJECT=${{ needs.convert_project_names.outputs.SOURCE_PROJECT }}
-            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}
+            TARGET_PROJECT=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}
             
             # Use the secrets
             SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
