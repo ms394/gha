@@ -47,10 +47,17 @@ jobs:
       - name: Get Project names and modify them
         id: get_project_names
         run: |
-            SOURCE_PROJECT=$(echo "${{ github.event.inputs.source-project }}" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            TARGET_PROJECT=$(echo "${{ github.event.inputs.target-project }}" | tr 'a-z' 'A-Z' | tr '-' '_')
+            SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
+            TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
+            SOURCE_PROJECT_STR=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
+            TARGET_PROJECT_STR=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+            SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_STR}}_SA_SECRET
+            TARGET_SECRET_KEY: ${{SOURCE_PROJECT_STR.TARGET_PROJECT }}_SA_SECRET
+            
             echo "::set-output name=SOURCE_PROJECT::$SOURCE_PROJECT"
             echo "::set-output name=TARGET_PROJECT::$TARGET_PROJECT"
+            echo "::set-output name=SOURCE_SECRET_KEY::$SOURCE_SECRET_KEY"
+            echo "::set-output name=TARGET_SECRET_KEY::$TARGET_SECRET_KEY"
     
   access-secrets:  
     name: Run Python Script
@@ -64,14 +71,14 @@ jobs:
         
         - name: Retrieve and use Secret Key
           env:
-              SOURCE_SECRET_KEY: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}_SA_SECRET
-              TARGET_SECRET_KEY: ${{ needs.convert_project_names.outputs.TARGET_PROJECT }}_SA_SECRET
+              SOURCE_PROJECT: ${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}
+              TARGET_PROJECT: ${{ needs.convert_project_names.outputs.TARGET_PROJECT}}
+              SOURCE_SECRET_KEY: ${{ needs.convert_project_names.outputs.SOURCE_SECRET_KEY}}
+              TARGET_SECRET_KEY: ${{ needs.convert_project_names.outputs.TARGET_SECRET_KEY }}
               
           
           run: |
             # Access the secrets using environment variables
-            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.SOURCE_PROJECT }}
-            TARGET_PROJECT=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}
             
             # Use the secrets
             SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_KEY] }}
