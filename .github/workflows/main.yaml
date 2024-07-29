@@ -44,9 +44,10 @@ jobs:
           pip install -r requirements.txt  # If you have any requirements
       
       - name: Run Python Script
+        working-directory: .
         env:
           SOURCE_PROJECT: ${{ github.event.inputs.source-project }}
           TARGET_PROJECT: ${{ github.event.inputs.target-project }}
           SOURCE_SECRET: ${{ secrets.SOURCE_PROJECT }}
           TARGET_SECRET: ${{ secrets.TARGET_SECRET }}
-        run: python ../../main.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
+        run: python main.py SOURCE_PROJECT SOURCE_SECRET TARGET_PROJECT TARGET_SECRET
