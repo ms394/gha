@@ -3,7 +3,9 @@ import sys
 def main():
     
     print('python')
-    print("python: ",sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+    
+    for el in sys.argv:
+        print(sys.argv)
 
     return
 
