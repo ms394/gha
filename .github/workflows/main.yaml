@@ -75,7 +75,7 @@ jobs:
     name: Run Python Script
     runs-on: ubuntu-latest
     needs: convert_project_names
-    environment: ${{ github.event.inputs.source-project }}
+    environment: ${{ github.event.inputs.strato_env }}
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
