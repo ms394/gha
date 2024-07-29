@@ -83,8 +83,8 @@ jobs:
         - name: Retrieve and use Secret Key
           run: |
             # Access the secrets using environment variables
-            SOURCE_PROJECT=${{env.SOURCE_PROJECT_INPUT}}
-            TARGET_PROJECT=${env.TARGET_PROJECT_INPUT}
+            SOURCE_PROJECT=$env.SOURCE_PROJECT_INPUT
+            TARGET_PROJECT=$env.TARGET_PROJECT_INPUT
             SOURCE_SECRET=${{ secrets[env.SOURCE_SECRET_NAME] }}
             TARGET_SECRET=${{ secrets[env.TARGET_SECRET_NAME] }}
             python -u main.py $SOURCE_PROJECT $SOURCE_SECRET $TARGET_PROJECT $TARGET_SECRET
