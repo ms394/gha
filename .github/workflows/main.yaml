@@ -28,8 +28,8 @@ jobs:
     name: Get SA Secrets for the projects
     runs-on: ubuntu-latest
     outputs:
-        SOURCE_SECRET_NAME: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
-        TARGET_SECRET_NAME: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
+        SOURCE_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
+        TARGET_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -64,19 +64,20 @@ jobs:
         - name: Set up environment variables for secrets
           id: set_env
           run: |
-            echo "SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}_SA_SECRET" >> $GITHUB_ENV
-            echo "TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_SECRET_NAME }}_SA_SECRET" >> $GITHUB_ENV
+            echo "SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_PROJECT}}_SA_SECRET" >> $GITHUB_ENV
+            echo "TARGET_SECRET_KEY=${{ needs.convert_project_names.outputs.TARGET_PROJECT }}_SA_SECRET" >> $GITHUB_ENV
           
         - name: Retrieve and use Secret Key
           run: |
             # Access the secrets using environment variables
-            SOURCE_SECRET_KEY=${{ env.SOURCE_SECRET_KEY }}
+            SOURCE_SECRET_KEY=${{ needs.convert_project_names.outputs.SOURCE_SECRET_NAME }}_SA_SECRET"
+            SOURCE_PROJECT=${{ needs.convert_project_names.outputs.SOURCE_PROJECT }}"
             TARGET_SECRET_KEY=${{ env.TARGET_SECRET_KEY }}
 
             
             # Use the secrets
-            SOURCE_SECRET=${{ secrets.SOURCE_SECRET_KEY }}
-            TARGET_SECRET=${{ secrets.TARGET_SECRET_KEY}}
+            SOURCE_SECRET=${{ secrets.$SOURCE_SECRET_KEY }}
+            TARGET_SECRET=${{ secrets.$TARGET_SECRET_KEY}}
             echo "SOURCE_SECRET_KEY=${SOURCE_SECRET_KEY}"
             echo "TARGET_SECRET_KEY=${TARGET_SECRET_KEY}"
             echo "SOURCE_SECRET=${SOURCE_SECRET}"
