@@ -29,7 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
         SOURCE_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
-        TARGET_PROJECT: ${{ steps.get_project_names.outputs.SOURCE_PROJECT }}
+        TARGET_PROJECT: ${{ steps.get_project_names.outputs.TARGET_PROJECT }}
+        SOURCE_PROJECT_KEY: ${{ steps.get_project_names.outputs.SOURCE_PROJECT_KEY }}
+        TARGET_PROJECT_KEY: ${{ steps.get_project_names.outputs.TARGET_PROJECT_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -49,8 +51,8 @@ jobs:
         run: |
             SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            SOURCE_PROJECT_STR=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
-            TARGET_PROJECT_STR=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
+            SOURCE_PROJECT_STR=$(echo $SOURCE_PROJECT_INPUT | tr 'a-z' 'A-Z' | tr '-' '_') 
+            TARGET_PROJECT_STR=$(echo $TARGET_PROJECT_INPUT | tr 'a-z' 'A-Z' | tr '-' '_')
             SOURCE_SECRET_KEY: ${{SOURCE_PROJECT_STR}}_SA_SECRET
             TARGET_SECRET_KEY: ${{SOURCE_PROJECT_STR.TARGET_PROJECT }}_SA_SECRET
             
