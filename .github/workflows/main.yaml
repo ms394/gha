@@ -46,7 +46,7 @@ jobs:
         run: |
             SOURCE_PROJECT_INPUT=${{ github.event.inputs.source-project }}
             TARGET_PROJECT_INPUT=${{ github.event.inputs.target-project }}
-            SOURCE_PROJECT=$(echo "$SOURCE_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_') 
+            SOURCE_PROJECT=$(echo "${{ github.event.inputs.source-project }}" | tr 'a-z' 'A-Z' | tr '-' '_') 
             TARGET_PROJECT=$(echo "$TARGET_PROJECT_INPUT" | tr 'a-z' 'A-Z' | tr '-' '_')
             echo "Upper case source project : $($SOURCE_PROJECT_sa_secret)"
             echo "Upper case target project : $($TARGET_PROJECT_sa_secret)"
